@@ -21,7 +21,7 @@ Ce projet permet de :
 uploaded_file = st.file_uploader("Chargez le fichier à recatégoriser", type=["xlsx", "xls", "xlsm"])
 
 if uploaded_file:
-    xls = pd.ExcelFile(uploaded_file)
+    xls = pd.ExcelFile(uploaded_file, engine='openpyxl')
     st.write(xls.sheet_names)  # Afficher les noms des feuilles disponibles
 
     # Charger une feuille par son nom
