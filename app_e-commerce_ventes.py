@@ -18,7 +18,7 @@ Ce projet permet de :
 """)
 
 # --- Upload du fichier Excel ---
-uploaded_file = st.file_uploader("Chargez le fichier à recatégoriser", type=["xlsx", "xls", "xlsm"])
+uploaded_file = st.file_uploader("Chargez le fichier à recatégoriser", type=["xlsx", "xls", "xlsm", "xlsb"])
 
 if uploaded_file:
     xls = pd.ExcelFile(uploaded_file, engine='openpyxl')
