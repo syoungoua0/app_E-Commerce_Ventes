@@ -21,12 +21,21 @@ Ce projet permet de :
 uploaded_file = st.file_uploader("Chargez le fichier à recatégoriser", type=["xlsx", "xls", "xlsm"])
 
 if uploaded_file:
-    xls = pd.ExcelFile(uploaded_file)
-    st.write(xls.sheet_names)  # Afficher les noms des feuilles disponibles
+    try:
+        xls = pd.ExcelFile(uploaded_file, engine='openpyxl')
+        sheet_names = xls.sheet_names
+        st.write("Feuilles disponibles :", sheet_names)
 
-    # Charger une feuille par son nom
-    df = pd.read_excel(uploaded_file, sheet_name=xls.sheet_names[1], engine='openpyxl')  # Exemple de chargement de la première feuille
-    st.dataframe(df.head())
+        if sheet_names:
+            # Charger la première feuille
+            df = pd.read_excel(uploaded_file, sheet_name=sheet_names[0], engine='openpyxl')
+            st.dataframe(df.head())
+        else:
+            st.error("Le fichier Excel ne contient aucune feuille.")
+    except Exception as e:
+        st.error(f"Erreur lors du chargement du fichier : {e}")
+
+
 
     #st.write(df.sheet_names)
     st.write("Aperçu du fichier :")
