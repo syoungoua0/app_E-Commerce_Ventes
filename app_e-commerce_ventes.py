@@ -29,7 +29,10 @@ if uploaded_file:
         if sheet_names:
             # Charger la première feuille
             df = pd.read_excel(uploaded_file, sheet_name=sheet_names[0], engine='openpyxl')
-            st.dataframe(df.head())
+            st.dataframe(df.head())          
+            st.success("Fichier chargé avec succès !")
+            st.write("Aperçu du fichier :")
+            st.write(df.head())
         else:
             st.error("Le fichier Excel ne contient aucune feuille.")
     except Exception as e:
@@ -37,11 +40,7 @@ if uploaded_file:
 
 
 
-    #st.write(df.sheet_names)
-    st.write("Aperçu du fichier :")
-    #st.dataframe(df.head())
-    st.success("Fichier chargé avec succès !")
-    st.write(df.head())
+   
 
     # --- Nettoyage et préparation ---
     st.subheader("🔍 Recatégorisation automatique")
