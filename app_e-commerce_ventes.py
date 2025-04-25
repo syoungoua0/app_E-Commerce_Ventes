@@ -25,7 +25,7 @@ if uploaded_file:
     st.write(xls.sheet_names)  # Afficher les noms des feuilles disponibles
 
     # Charger une feuille par son nom
-    df = pd.read_excel(uploaded_file, sheet_name=xls.sheet_name[0], engine='openpyxl')  # Exemple de chargement de la première feuille
+    df = pd.read_excel(uploaded_file, sheet_name=xls.sheet_names[0], engine='openpyxl')  # Exemple de chargement de la première feuille
     st.dataframe(df.head())
 
     #st.write(df.sheet_names)
