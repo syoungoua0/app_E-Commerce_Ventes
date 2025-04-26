@@ -22,22 +22,19 @@ uploaded_file = st.file_uploader("Chargez le fichier à recatégoriser", type=["
 
 if uploaded_file:
     xls = pd.ExcelFile(uploaded_file, engine='openpyxl')
-    st.write(xls.sheet_names)  # Afficher les noms des feuilles disponibles
-
     # Charger une feuille par son nom
     df = pd.read_excel(uploaded_file, sheet_name=xls.sheet_names[0], engine='openpyxl')  # Exemple de chargement de la première feuille
-    st.dataframe(df.head())
-
-    #st.write(df.sheet_names)
-    st.write("Aperçu du fichier :")
-    #st.dataframe(df.head())
     st.success("Fichier chargé avec succès !")
+    #st.dataframe(df.head())
+    st.write("Aperçu du fichier :")
+    #st.dataframe(df.head())    
+    st.write(xls.sheet_names)  # Afficher les noms des feuilles disponibles
     st.write(df.head())
 
     # --- Nettoyage et préparation ---
     st.subheader("🔍 Recatégorisation automatique")
 
-    if 'nature' not in df.columns or 'description' not in df.columns:
+    if 'Nature' not in df.columns or 'Libellé produit' not in df.columns:
         st.error("Le fichier doit contenir au minimum les colonnes 'nature' et 'description'")
     else:
         # Nettoyage des données
