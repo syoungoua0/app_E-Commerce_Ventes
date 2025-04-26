@@ -41,12 +41,12 @@ if uploaded_file:
         st.error("Le fichier doit contenir au minimum les colonnes 'nature' et 'description'")
     else:
         # Nettoyage des données
-        df = df.dropna(subset=['nature', 'description'])
-        df['description_clean'] = df['description'].str.lower().str.replace(r'[^a-z0-9 ]', ' ', regex=True)
+        df = df.dropna(subset=['Nature', 'Libellé produit'])
+        df['description_clean'] = df['Libellé produit'].str.lower().str.replace(r'[^a-z0-9 ]', ' ', regex=True)
 
         # Encodage des catégories
         le = LabelEncoder()
-        y = le.fit_transform(df['nature'])
+        y = le.fit_transform(df['Nature'])
 
         # Modèle de prédiction
         X_train, X_test, y_train, y_test = train_test_split(df['description_clean'], y, test_size=0.2, random_state=42)
@@ -61,7 +61,7 @@ if uploaded_file:
         df['is_misclassified'] = df['nature'] != df['predicted_nature']
 
         st.write("Lignes mal catégorisées :")
-        st.dataframe(df[df['is_misclassified']][['description', 'nature', 'predicted_nature']].head(10))
+        st.dataframe(df[df['is_misclassified']][['Libellé produit', 'Nature', 'predicted_nature']].head(10))
 
         csv_misclassified = df.to_csv(index=False).encode('utf-8')
         st.download_button("📥 Télécharger le fichier recatégorisé", csv_misclassified, file_name="recategorised_products.csv")
