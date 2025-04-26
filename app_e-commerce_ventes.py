@@ -41,6 +41,9 @@ if uploaded_file:
         df = df.dropna(subset=['Nature', 'Libellé produit'])
         df['description_clean'] = df['Libellé produit'].str.lower().str.replace(r'[^a-z0-9 ]', ' ', regex=True)
 
+        #Valeurs manquantes
+        df = df.dropna(subset=['description_clean'])
+
         # Encodage des catégories
         le = LabelEncoder()
         y = le.fit_transform(df['Nature'])
